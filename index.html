@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login YANZ</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+body { 
+  background: #0a0a0a; 
+  color: white; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  min-height: 100vh;
+  overflow: hidden;
+}
+.login-box {
+  background: rgba(20,20,20,0.9);
+  padding: 40px 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,50,50,0.3);
+  width: 320px;
+  border: 1px solid rgba(255,50,50,0.2);
+}
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ff4444;
+  letter-spacing: 2px;
+}
+.input-group {
+  margin-bottom: 20px;
+}
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: white;
+  outline: none;
+  transition: 0.3s;
+}
+.input-group input:focus {
+  border-color: #ff4444;
+  box-shadow: 0 0 10px rgba(255,68,68,0.5);
+}
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff2222, #ff6666);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-login:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255,68,68,0.6);
+}
+.error {
+  color: #ff5555;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+  font-size: 14px;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.loading-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0; left: 0;
+  z-index: -1;
+}
+.counter {
+  font-size: 80px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 20px #ff4444;
+  z-index: 1;
+}
+.powered {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.2);
+  font-size: 16px;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+</style>
+</head>
+<body>
+
+<div class="login-box" id="loginBox">
+  <h2>LOGIN</h2>
+  <div class="input-group">
+    <input type="text" id="username" placeholder="Username" autocomplete="off">
+  </div>
+  <div class="input-group">
+    <input type="password" id="password" placeholder="Password">
+  </div>
+  <button class="btn-login" onclick="login()">MASUK</button>
+  <div class="error" id="error">User/Password salah co!</div>
+</div>
+
+<div class="loading-screen" id="loadingScreen">
+  <video autoplay muted loop playsinline>
+    <source src="https://video-wa-mp4-1331426735007673.mp4" type="video/mp4">
+  </video>
+  <div class="counter" id="counter">0</div>
+  <div class="powered">Powered by yanz</div>
+</div>
+
+<script>
+function login() {
+  const user = document.getElementById('username').value;
+  const pass = document.getElementById('password').value;
+  const error = document.getElementById('error');
+  
+  if(user === 'YANZ' && pass === 'PARKER221') {
+    document.getElementById('loginBox').style.display = 'none';
+    document.getElementById('loadingScreen').style.display = 'flex';
+    startCounter();
+  } else {
+    error.style.display = 'block';
+    setTimeout(() => error.style.display = 'none', 2000);
+  }
+}
+
+function startCounter() {
+  let count = 0;
+  const counterEl = document.getElementById('counter');
+  const interval = setInterval(() => {
+    count++;
+    counterEl.textContent = count;
+    if(count >= 100) {
+      clearInterval(interval);
+      counterEl.textContent = '100%';
+    }
+  }, 50); // 50ms x 100 = 5 detik total
+}
+
+// Enter buat login
+document.addEventListener('keypress', function(e) {
+  if(e.key === 'Enter') login();
+});
+</script>
+
+</body>
+  </html>
